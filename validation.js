@@ -113,7 +113,7 @@ $(document).ready(function () {
     });
 
     // Validate on Button Click
-    $("#userForm, #login-form, #contactForm, #contactForm").on("click", function (e) {
+    $("#userForm, #login-form, #contactForm, #contactForm, #registrationForm").on("click", function (e) {
         let form = $(this).closest("form");
         let isValid = true;
 
