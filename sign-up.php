@@ -75,7 +75,4 @@ include('footer.php');
 $con = mysqli_connect("localhost", "root", "", "normal_user");
 
 
-
-
-
 ?>
