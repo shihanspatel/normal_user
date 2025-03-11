@@ -1,5 +1,13 @@
 <?php include_once("After-login-header.php"); ?>
-<script>
+
+
+<script src="validation.js"></script>
+<script src="jquery-3.7.1.min.js"></script>
+<script src="jquery.validate.min.js"></script>
+<script src="additional-methods.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+<!-- <script>
     $(document).ready(function() {
         $("#contactForm").validate({
             rules: {
@@ -25,15 +33,17 @@
             }
         });
     });
-</script>
+</script> -->
 <br>
-    <h2 style="margin-left: 40px;">Contact Us</h2>
-    <form id="contactForm" action="edit-profile.php" style="margin-left: 40px;">
-        <div class="mb-3">
-            <label class="form-label">Change Address</label>
-            <textarea class="form-control" rows="4" name="txt" id="txt" required style="width: 80%;"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+<h2 style="margin-left: 40px;">Contact Us</h2>
+<form id="contactForm" action="edit-profile.php" style="margin-left: 40px;">
+    <div class="mb-3">
+        <label class="form-label">Change Address</label>
+
+        <textarea class="form-control" rows="4" name="txt" id="txt" data-validation="required min" data-min="10" style="width: 80%;"></textarea>
+        <span id="txtError" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
 <br>
-    <?php include_once("footer.php"); ?>
+<?php include_once("footer.php"); ?>

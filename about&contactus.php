@@ -1,12 +1,19 @@
 <?php
 include_once("After-login-header.php");
 ?>
+
+<script src="validation.js"></script>
+<script src="jquery-3.7.1.min.js"></script>
+<script src="jquery.validate.min.js"></script>
+<script src="additional-methods.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
 <style>
-    .text{
+    .text {
         text-align: justify;
     }
 </style>
-<script>
+<!-- <script>
     $(document).ready(function() {
         $("#contactForm").validate({
             rules: {
@@ -44,7 +51,7 @@ include_once("After-login-header.php");
             }
         });
     });
-</script>
+</script> -->
 
 <div class="container mt-5">
 
@@ -60,22 +67,31 @@ include_once("After-login-header.php");
         </p>
     </section>
 
-    <section id="contact" class="mt-5 " >
+    <section id="contact" class="mt-5 ">
         <h2>Contact Us</h2>
+
         <form id="contactForm">
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" id="name">
+                <input type="text" class="form-control" name="name" id="name"
+                    data-validation="required alpha" data-min="3" data--max="20">
+                <span id="nameError" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email">
+                <input type="email" class="form-control" name="email" id="email"
+                    data-validation="required email">
+                <span id="emailError" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Message</label>
-                <textarea class="form-control" rows="4" required></textarea>
+                <textarea class="form-control" rows="4" name="message" id="message"
+                    data-validation="required min" data-min="10"></textarea>
+                <span id="messageError" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <input type="submit" value="submit" class="btn btn-primary">
         </form>
     </section>
 </div>
