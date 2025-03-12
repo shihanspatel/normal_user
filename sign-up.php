@@ -202,8 +202,8 @@ if (isset($_POST['signup_btn'])) {
         $mail->Port       = 465;                   // set the SMTP port for the GMAIL server
         $mail->Username   = "bhaiphp@gmail.com";  // GMAIL username(from)
         $mail->Password   = "tqnp vikw vnqb mdrb";            // GMAIL password(from)
-        $mail->SetFrom('bhaiphp@gmail.com', 'Student Demo Website'); //from
-        $mail->AddReplyTo("bhaiphp@gmail.com", "Student Demo Website"); //to
+        $mail->SetFrom('bhaiphp@gmail.com', 'Luis Vitton'); //from
+        $mail->AddReplyTo("bhaiphp@gmail.com", "Luis Vitton"); //to
         $mail->Subject    = "Account Verification Link";
         $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
         $mail->MsgHTML($body);
