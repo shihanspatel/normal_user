@@ -8,19 +8,20 @@ $con = mysqli_connect("localhost", "root", "", "noraml_user");
     $count = $con->query($sql);
     $r = mysqli_fetch_assoc($count);
     if ($count->num_rows == 1) {
-        if ($r['status'] == 'Inactive') {
-            $update = "UPDATE noraml_user SET status = 'Active' WHERE email = '$email'";
+        if ($r['status'] == 'inactive') {
+            $update = "UPDATE user SET status = 'Active' WHERE email = '$email'";
             if ($con->query($update)) {
-                setcookie('success', 'Account Verification Successful', time() + 5);
+                echo "helo";
+                setcookie('success', 'Account Verification Successful', time() + 5,"/");
             } else {
-                setcookie('error', 'Error in verifying email', time() + 5);
+                setcookie('error', 'Error in verifying email', time() + 5,"/");
             }
         } else {
-            setcookie('success', 'Email already verified', time() + 5);
+            setcookie('success', 'Email already verified', time() + 5,"/");
         }
     }
 } else {
-    setcookie('error', 'Email not registered', time() + 5);
+    setcookie('error', 'Email not registered', time() + 5,"/");
 }
 ?>
 <script>

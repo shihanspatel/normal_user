@@ -1,7 +1,18 @@
-<?php include_once("After-login-header.php"); ?>
-<!-- <img src="images/my_lv_welcome_page_desktop.webp" class="img-fluid"> -->
+<?php 
+session_start();
+
+include_once("After-login-header.php"); 
+
+$con = mysqli_connect("localhost", "root", "", "noraml_user");
+    $email = $_GET['email'];
+    $token = $_GET['token'];
+    $sql = "SELECT * FROM user WHERE email = '$email' AND token = '$token'";
+    $count = $con->query($sql);
+    $r = mysqli_fetch_assoc($count);
+?>
+
 <div class="text-center mt-4">
-    <h3>SHIHANS PATEL</h3>
+    <h3><?php echo $r['firstname'].$r['lastname']; ?></h3>
 </div>
 
 <div class="container mt-5">
@@ -12,14 +23,9 @@
                 <hr>
                 <p>Title:- Mr.</p>
                 <p>Country:- India</p>
-                <p>E-mail: shihanspatel07@gmail.com</p>
-                <p>Date Of Birth:- 03-04-2008</p>
-                <h5>Contact Preferences</h5>
-                <div class="d-flex gap-3">
-                    <a href="#"><img src="images/envelope-paper.svg" class="icon" title="Secondary Email"></a>
-                    <a href="#"> <img src="images/phone.svg" class="icon" title="Phone"></a>
-                    
-                </div>
+                <p>E-mail:- shihanspatel07@gmail.com</p>
+                <p>Gander:- Male</p>
+                <p>Mobile Number:- 8780074890</p>
                 <a href="edit-profile.php"><button class="btn btn-outline-dark mt-3 btn-block">Edit My Profile</button></a>
 
 

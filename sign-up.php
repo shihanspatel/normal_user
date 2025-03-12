@@ -76,6 +76,17 @@ require('PHPMailer\Exception.php');;
         </div>
 
         <div class="mb-3">
+                        <label for="gender" class="form-label">Select Gender<span class="text-danger">*</span></label>
+                        <select id="gender" name="gender" class="form-select" data-validation="required">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+            <span id="genderError" class="text-danger"></span>
+         </div>
+
+        <div class="mb-3">
             <label for="email" class="form-label">Email*</label>
             <input type="email" id="email" name="email" class="form-control form-control-sm"
                 data-validation="required email" required>
@@ -135,6 +146,7 @@ if (isset($_POST['signup_btn'])) {
     $title = $_POST['title'];
     $firstname = $_POST['first_name'];
     $lastname = $_POST['last_name'];
+    $gender = $_POST['gender'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
     $password = $_POST['password'];
@@ -145,8 +157,8 @@ if (isset($_POST['signup_btn'])) {
     $token = time();
 
 
-    $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`, `email`, `mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
-     VALUES ('$title','$firstname','$lastname','$email','$mobile','$password','$c_password','$profile_picture','user','inactive','$token')";
+    $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`,`gender`,`email`, `mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
+     VALUES ('$title','$firstname','$lastname','$gender','$email','$mobile','$password','$c_password','$profile_picture','user','inactive','$token')";
 
     if (mysqli_query($con, $insert)) {
 
@@ -165,11 +177,12 @@ if (isset($_POST['signup_btn'])) {
         $subject = "Account Verification Link";
 
         $link = 'http://localhost/normal_user/verify.php?email=' . $email . '&token=' . $token;
-        $body = "<div style='background-color: #f8f9fa; padding: 20px; border-radius: 5px;'>
-                     <h2 style='color: #dc3545; text-align: center;'>Account Verification</h2>
-                     <p style='text-align: center;'>Click on the button below to verify your account</p>
-                    <a href='" . $link . "' style='display: block; width: 200px; margin: 0 auto; text-align: center; background-color: #dc3545; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Verify Account</a>
-                 </div>";
+        $body = "<div style='background-color:rgb(225, 229, 234); padding: 20px; border-radius: 5px;'>
+                <h2 style='color: #dc3545; text-align: center;'>Account Verification</h2>
+                <p style='text-align: center;'>Please Click On This Button To verify That You Are a Genuine User</p>
+                <a href='" . $link . "' style='display: block; width: 200px; margin: 0 auto; text-align: center; background-color:rgb(104, 104, 104); color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Verify Account</a>
+        </div>";
+
 
         $mail->IsSMTP(); // telling the class to use SMTP
         $mail->SMTPDebug  = 2;                // enables SMTP debug information (for testing)
@@ -194,7 +207,7 @@ if (isset($_POST['signup_btn'])) {
         $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
         $mail->MsgHTML($body);
 
-        $mail->AddAddress($to, "Student Sample Website");
+        $mail->AddAddress($to, "Louis Vitton(A Premimum Item Selling Brand)");
         if (!$mail->Send()) {
             setcookie('error', 'Failed to send the registration link', time() + 5);
         } else {

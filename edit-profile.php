@@ -65,45 +65,8 @@ include_once("After-login-header.php");
                         <span id="countryError" class="text-danger"></span>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="dob" class="form-label">Date of Birth<span class="text-danger">*</span></label><br>
-                        <select id="dobDay" name="dobDay" class="form-select d-inline w-auto" data-validation="required">
-                            <option value="">Day</option>
-                            <!-- Days 1-31 -->
-                            <script>
-                                for (let i = 1; i <= 31; i++) {
-                                    document.write(`<option value="${i}">${i}</option>`);
-                                }
-                            </script>
-                        </select>
-                        <select id="dobMonth" name="dobMonth" class="form-select d-inline w-auto" data-validation="required">
-                            <option value="">Month</option>
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
-                        <select id="dobYear" name="dobYear" class="form-select d-inline w-auto" data-validation="required">
-                            <option value="">Year</option>
-                            <script>
-                                let year = new Date().getFullYear();
-                                for (let i = year; i >= 1990; i--) {
-                                    document.write(`<option value="${i}">${i}</option>`);
-                                }
-                            </script>
-                        </select>
-                        <span id="dobDayError" class="text-danger"></span>
-                        <span id="dobMonthError" class="text-danger"></span>
-                        <span id="dobYearError" class="text-danger"></span>
-                    </div>
+
+
 
                     <div class="mb-3">
                         <label for="img" class="form-label">Select Your Image<span class="text-danger">*</span></label>
@@ -139,111 +102,6 @@ include_once("After-login-header.php");
         </div>
     </div>
 </div>
-<script>
-    const daySelect = document.getElementById('dobDay');
-    const monthSelect = document.getElementById('dobMonth');
-    const yearSelect = document.getElementById('dobYear');
-    for (let i = 1; i <= 31; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = i;
-        daySelect.appendChild(option);
-
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        months.forEach((month, index) => {
-            const option = document.createElement('option');
-            option.value = index + 1;
-            option.textContent = month;
-            monthSelect.appendChild(option);
-        });
-        const currentYear = new Date().getFullYear();
-        for (let i = currentYear; i >= 1900; i--) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i;
-            yearSelect.appendChild(option);
-        }
-        // $(document).ready(function() {
-        //     $('#userForm').validate({
-        //         rules: {
-        //             title: {
-        //                 required: true
-        //             },
-        //             firstName: {
-        //                 required: true,
-        //                 minlength: 3,
-        //                 pattern: /^[A-Za-z]+$/
-        //             },
-        //             lastName: {
-        //                 required: true,
-        //                 minlength: 3,
-        //                 pattern: /^[A-Za-z]+$/
-        //             },
-        //             country: {
-        //                 required: true
-        //             },
-        //             dobDay: {
-        //                 required: true
-        //             },
-        //             dobMonth: {
-        //                 required: true
-        //             },
-        //             dobYear: {
-        //                 required: true
-        //             }
-        //         },
-        //         messages: {
-        //             title: {
-        //                 required: "Please select a title."
-        //             },
-        //             firstName: {
-        //                 required: "Please enter your first name.",
-        //                 minlength: "Your first name must be at least 3 characters long.",
-        //                 pattern: "Only roman characters are allowed."
-        //             },
-        //             lastName: {
-        //                 required: "Please enter your last name.",
-        //                 minlength: "Your last name must be at least 3 characters long.",
-        //                 pattern: "Only roman characters are allowed."
-        //             },
-        //             country: {
-        //                 required: "Please select a country."
-        //             },
-        //             dobDay: {
-        //                 required: "Please select a day."
-        //             },
-        //             dobMonth: {
-        //                 required: "Please select a month."
-        //             },
-        //             dobYear: {
-        //                 required: "Please select a year."
-        //             }
-        //         },
-        //         errorElement: "div",
-        //         errorPlacement: function(error, element) {
-        //             error.addClass('invalid-feedback');
-        //             error.insertAfter(element);
-        //         },
-        //         highlight: function(element) {
-        //             $(element).addClass('is-invalid').removeClass('is-valid');
-        //         },
-        //         unhighlight: function(element) {
-        //             $(element).removeClass('is-invalid').addClass('is-valid');
-        //         }
-        //     });
-        // });
-        $(document).ready(function() {
-            //     $('#userForm').on('submit', function(e) {
-            //         const isChecked = $('input[name="contactPreference"]:checked').length > 0;
-            //         if (!isChecked) {
-            //             $('#contactError').text('Please select at least one contact preference.').show();
-            //             e.preventDefault();
-            //         } else {
-            //             $('#contactError').hide();
-            //         }
-            //     });
-        });
-</script>
 
 <?php
 include('footer.php');

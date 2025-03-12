@@ -52,6 +52,7 @@
     </div>
     <?php
     include 'footer.php';
+    session_start();
 
     $con = mysqli_connect("localhost", "root", "", "noraml_user");
 
