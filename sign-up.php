@@ -1,4 +1,3 @@
-
 <?php
 include_once("before-loginheader.php");
 
@@ -144,13 +143,13 @@ if (isset($_POST['signup_btn'])) {
     $terms = $_POST['terms'];
     $profile_picture_tmp_name = $_FILES['profile_picture']['tmp_name'];
     $token = time();
-   
+
 
     $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`, `email`, `mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
      VALUES ('$title','$firstname','$lastname','$email','$mobile','$password','$c_password','$profile_picture','user','inactive','$token')";
 
-    if (mysqli_query($con,$insert)) {
-       
+    if (mysqli_query($con, $insert)) {
+
 
         if (!file_exists('images/profile_pictures')) {
             mkdir('images/profile_pictures');
@@ -190,7 +189,7 @@ if (isset($_POST['signup_btn'])) {
         $mail->Username   = "bhaiphp@gmail.com";  // GMAIL username(from)
         $mail->Password   = "tqnp vikw vnqb mdrb";            // GMAIL password(from)
         $mail->SetFrom('bhaiphp@gmail.com', 'Luis Vitton'); //from
-        $mail->AddReplyTo("$to", "Luis Vitton"); //to
+        $mail->AddReplyTo("bhaiphp@gmail.com", "Luis Vitton"); //to
         $mail->Subject    = "Account Verification Link";
         $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
         $mail->MsgHTML($body);
