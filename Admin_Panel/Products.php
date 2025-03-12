@@ -1,108 +1,125 @@
 <?php
 include('index.php');
 ?>
+
+<script src="validation.js"></script>
+<script src="jquery-3.7.1.min.js"></script>
+<script src="jquery.validate.min.js"></script>
+<script src="additional-methods.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
 <style>
     .size {
         width: 25%;
-
     }
 </style>
-<div class="col-xxl-9 p-1">
-    <div class="card text-center shadow-sm">
-        <h2 class="mb-4 text-center">Product Management</h2>
+<div class="col-11">
+    <div class="container p-1">
+        <div class="card text-center shadow-sm">
+            <h2 class="mb-4 text-center">Product Management</h2>
 
-        <!-- Add Product Button -->
-        <!-- Product List Table for Shoes -->
-        <div class="card p-4">
-            <button class="btn btn-primary mb-3 size" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                <i class="fas fa-plus"></i> Add Product
-            </button>
-            <h4>Product</h4>
-            <table class="table table-striped mt-3">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="shoesProductTableBody">
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="card p-4">
+                <button class="btn btn-primary mb-3 size" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="fas fa-plus"></i> Add Product
+                </button>
+                <h4>Product</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shoesProductTableBody">
+               </tbody>
+                    </table>
                 </div>
-                <div class="modal-body">
-                    <form id="productForm">
-                        <input type="hidden" id="editIndex" name="editIndex">
+            </div>
+        </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="productName" name="productName" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" id="productDesc" name="productDesc" rows="3"></textarea>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Price ($)</label>
-                                <input type="number" class="form-control" id="productPrice" name="productPrice" required>
+        <!-- Modal -->
+        <div class="modal" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="productForm">
+                            <input type="hidden" id="editIndex" name="editIndex">
+                            <div class="mb-3">
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" name="productName" data-validation="required">
+                                <span class="text-danger" id="productNameError"></span>
                             </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Category</label>
-                                <select class="form-control" id="productCategory" name="productCategory">
-                                    <option value="">-- Select Category --</option>
-                                    <option value="Women's Bag">Women's Bag</option>
-                                    <option value="Men's Wallet">Men's Wallet</option>
-                                    <option value="Cloth">Cloth</option>
-                                    <option value="Shoes">Shoes</option>
-                                </select>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" id="productDesc" name="productDesc" rows="3" data-validation="required description"></textarea>
+                                <span class="text-danger" id="productDescError"></span>
                             </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Stock Quantity</label>
-                                <input type="number" class="form-control" id="productStock" name="productStock" required>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Price ($)</label>
+                                    <input type="number" class="form-control" id="productPrice" name="productPrice" data-validation="required numeric min" data-min="1">
+                                    <span class="text-danger" id="productPriceError"></span>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-control" id="productCategory" name="productCategory" data-validation="required">
+                                        <option value="">-- Select Category --</option>
+                                        <option value="Women's Bag">Women's Bag</option>
+                                        <option value="Men's Wallet">Men's Wallet</option>
+                                        <option value="Cloth">Cloth</option>
+                                        <option value="Shoes">Shoes</option>
+                                    </select>
+                                    <span class="text-danger" id="productCategoryError"></span>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Stock Quantity</label>
+                                    <input type="number" class="form-control" id="productStock" name="productStock" data-validation="required numeric min" data-min="1">
+                                    <span class="text-danger" id="productStockError"></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Product Image</label>
-                            <input type="file" class="form-control" id="productImage" name="productImage">
-                        </div>
+                            <div class="mb-3">
+                                <label class="form-label">Product Image</label>
+                                <input type="file" class="form-control" id="productImage" name="productImage" data-validation="file">
+                                <span class="text-danger" id="productImageError"></span>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary w-100" data-bs-dismiss="modal">Save Product</button>
-                    </form>
+                            <input type="submit" class="btn btn-primary w-100" value="Save Product">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
+
+<script src="jquery-3.7.1.min.js"></script>
+<script src="jquery.validate.min.js"></script>
+<script src="additional-methods.min.js"></script>
+
+<!-- <script>
     let shoes = [];
     let wallets = [];
     let cloth = [];
     let womanBags = [];
     let editMode = false;
-    let currentCategory = 'shoes'; // Default category
+    let currentCategory = 'shoes';
 
-    // Function to render products in table based on category
     function renderProducts() {
         let products;
         let tableBodyId;
@@ -150,9 +167,6 @@ include('index.php');
         });
     }
 
-
-
-    // Function to add or update product
     document.getElementById("productForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -218,7 +232,6 @@ include('index.php');
         modal.hide();
     });
 
-    // Function to edit product
     function editProduct(index) {
         let products;
         switch (currentCategory) {
@@ -252,7 +265,6 @@ include('index.php');
         modal.show();
     }
 
-    // Function to delete product
     function deleteProduct(index) {
         if (confirm("Are you sure you want to delete this product?")) {
             switch (currentCategory) {
@@ -272,87 +284,11 @@ include('index.php');
             renderProducts();
         }
     }
-</script>
 
-<!-- Validation in jQuery -->
-
-<script>
-    $(document).ready(function() {
-        $("#productForm").validate({
-            rules: {
-                productName: {
-                    required: true,
-                    minlength: 3
-                },
-                productDesc: {
-                    required: true,
-                    minlength: 10
-                },
-                productPrice: {
-                    required: true,
-                    number: true,
-                    min: 0.01
-                },
-                productCategory: {
-                    required: true
-                },
-                productStock: {
-                    required: true,
-                    digits: true,
-                    min: 1
-                },
-                productImage: {
-                    required: true,
-                    extension: "jpg|jpeg|png|gif"
-                }
-            },
-            messages: {
-                productName: {
-                    required: "Please enter a product name",
-                    minlength: "Product name must be at least 3 characters long"
-                },
-                productDesc: {
-                    required: "Please enter a product description",
-                    minlength: "Description must be at least 10 characters long"
-                },
-                productPrice: {
-                    required: "Please enter a price",
-                    number: "Please enter a valid number",
-                    min: "Price must be greater than 0"
-                },
-                productCategory: {
-                    required: "Please select a category"
-                },
-                productStock: {
-                    required: "Please enter stock quantity",
-                    digits: "Stock quantity must be a whole number",
-                    min: "Stock must be at least 1"
-                },
-                productImage: {
-                    required: "Please upload an image",
-                    extension: "Allowed file types: JPG, JPEG, PNG, GIF"
-                }
-            },
-            errorElement: "div",
-            errorPlacement: function(error, element) {
-                error.addClass("text-danger mt-1");
-                error.insertAfter(element);
-            },
-            highlight: function(element) {
-                $(element).addClass("is-invalid");
-            },
-            unhighlight: function(element) {
-                $(element).removeClass("is-invalid");
-            },
-            submitHandler: function(form) {
-                alert("Product added successfully!");
-                form.submit();
-            }
-        });
-    });
-</script>
+</script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
