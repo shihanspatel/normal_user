@@ -3,7 +3,6 @@ include_once('before-loginheader.php');
 $con = mysqli_connect("localhost", "root", "", "noraml_user");
 
 if (isset($_GET['email']) && isset($_GET['token'])) {
-    
 
     $email = $_GET['email'];
     $token = $_GET['token'];

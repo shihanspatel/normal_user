@@ -2,19 +2,19 @@
 
 include_once("After-login-header.php");
 
-if (isset($_GET['email']) && isset($_GET['token'])){
+if (isset($_POST['email']) && isset($_POST['token'])){
 
 $con = mysqli_connect("localhost", "root", "", "noraml_user");
     $email = $_POST['email'];
     $token = $_POST['token'];
     $sql = "SELECT * FROM user WHERE email = '$email' AND token = '$token'";
     $count = $con->query($sql);
-    $r = mysqli_fetch_assoc($count);
+    $row = mysqli_fetch_assoc($count);
 }
 ?>
 
 <div class="text-center mt-4">
-    <h3><?php echo $r['firstname']; ?></h3>
+    <h3><?php echo $row['firstname']; ?></h3>
 </div>
 
 <div class="container mt-5">
