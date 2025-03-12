@@ -142,9 +142,6 @@ require('PHPMailer\Exception.php');;
 
 </div>
 
-<?php
-include('footer.php');
-?>
 
 
 <?php
@@ -223,4 +220,5 @@ if (isset($_POST['signup_btn'])) {
     </script>
 <?php
 }
+include('footer.php');
 ?>
