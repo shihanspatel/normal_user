@@ -7,64 +7,57 @@ include('index.php');
         padding: 0;
     }
 
-
-    /* Content Styling */
     .content {
         padding: 20px;
     }
 
-    /* Dashboard Cards */
     .dashboard-container .card {
-        /* background: tra; */
-        /* color: wh; */
         border-radius: 15px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        min-height: 150px;
     }
-
 
     .dashboard-container .card:hover {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        /* filter: invert(1); */
-        /* color: white; */
     }
 
-    .dashboard-container .card .card-body {
+    .dashboard-container .card-body {
         text-align: center;
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-
-
     .dashboard-container .card-title {
-        font-size: 1.0rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
         font-weight: bold;
-
     }
 
     .dashboard-container .card-value {
-        font-size: 2.5rem;
-        margin: 10px 0;
-    }
-
-    .row {
-        margin-bottom: 20px;
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        margin-top: 5px;
+        font-weight: bold;
+        color: #007bff;
     }
 </style>
-<div class="col-xxl-9 col-xl-9 col-lg-9 col-md-10" style="margin-top: 30px; margin-bottom: auto; margin-left:auto; margin-right: auto;">
+
+<div class="col-11">
+    <div class="container mt-4">
         <div class="dashboard-container">
-            <!-- First Row -->
-            <div class="row ">
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+
+            <div class="row g-3">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Total Users</h5>
+                            <h5 class="card-title">Total Users demodfghjk</h5>
                             <div class="card-value">1,234</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Total Products</h5>
@@ -72,8 +65,7 @@ include('index.php');
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top: 20px;">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Total Orders</h5>
@@ -81,8 +73,10 @@ include('index.php');
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top: 20px;">
+            </div>
+
+            <div class="row g-3 mt-2">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Total Inquiries</h5>
@@ -90,10 +84,7 @@ include('index.php');
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Second Row -->
-            <div class="row">
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Active Users</h5>
@@ -101,7 +92,7 @@ include('index.php');
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Inactive Users</h5>
@@ -109,8 +100,10 @@ include('index.php');
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-md-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+            </div>
+
+            <div class="row g-3 mt-2">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Pending Orders</h5>
@@ -118,8 +111,7 @@ include('index.php');
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Today's Orders</h5>
@@ -128,13 +120,11 @@ include('index.php');
                     </div>
                 </div>
             </div>
+
         </div>
-    
-</div>
+    </div>
 </div>
 
-
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

@@ -69,34 +69,12 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required><br><br>
 
-            <button type="submit">Login</button>
+            <button type="submit"><a href="Dashboard.php">Login</a></button>
         </form>
         <p id="errorMessage">Invalid credentials. Please try again.</p>
     </div>
 
-    <script>
-        // script.js
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'login.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function() {
-                if (xhr.status === 200 && xhr.responseText === 'success') {
-                    // If login is successful, redirect to the dashboard
-                    window.location.href = 'Dashboard.php';
-                } else {
-                    // Show error message if login fails
-                    document.getElementById('errorMessage').style.display = 'block';
-                }
-            };
-            xhr.send('username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
-        });
-    </script>
 </body>
 
 </html>
