@@ -1,29 +1,14 @@
 
+
+</script>
+</head>
+
+
+<script src="validation.js"></script>
 <script src="jquery-3.7.1.min.js"></script>
 <script src="jquery.validate.min.js"></script>
 <script src="additional-methods.min.js"></script>
-<script src="js/universal_validation.js"></script>
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<?php
-
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
-require('PHPMailer\PHPMailer.php');
-require('PHPMailer\SMTP.php');
-require('PHPMailer\Exception.php'); ?>
-
+<script src="js/bootstrap.bundle.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -52,140 +37,158 @@ require('PHPMailer\Exception.php'); ?>
 </script>
 
 <div class="container py-5">
-    <div class="card signup-card">
-        <div class="card-body p-4">
-            <h2 class="text-center mb-4">Create Account</h2>
-            <p class="text-muted text-center mb-4">Join us today and start exploring!</p>
+    <h2 class="text-uppercase fw-bold mb-3">Create Your Account</h2>
+    <p class="text-muted">Create your account to have access to a more personalized experience.</p>
+    <p>Already have a MyLV account? <a href="login.php" class="text-decoration-none">Log in here.</a></p>
+    <p class="text-end text-danger">* Required fields</p>
 
-            <form action="signup.php" method="post" id="signupForm" enctype="multipart/form-data">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" data-validation="required alpha">
-                        <div class="error" id="firstNameError"></div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" data-validation="required alpha">
-                        <div class="error" id="lastNameError"></div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" data-validation="required email">
-                    <div class="error" id="emailError"> </div>
-                </div>
-                <div class="mb-3">
-                    <label for="mobile" class="form-label">Mobile Number</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Your Mobile Number" name="mobile" data-validation="required numeric min max" data-min="10" data-max="10">
-                    <div class="error" id="mobileError"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Create password" data-validation="required strongPassword min max" data-min="8" data-max="25">
-                    <div class="error" id="passwordError"></div>
-                </div>
-
-                <div class=" mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password"
-                        data-validation="required confirmPassword" data-password-id="password">
-                    <div class="error" id="confirmPasswordError"></div>
-                </div>
-
-                <div class=" mb-3">
-                    <label for="profile_picture" class="form-label">Profile Picture</label>
-                    <input type="file" class="form-control" id="profile_picture" name="profile_picture" placeholder="Confirm password"
-                        data-validation="required file filesize" data-filesize="200">
-                    <div class="error" id="profile_pictureError"></div>
-                </div>
-
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="terms" name="terms" data-validation="terms">
-                    <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
-                    <div class="error" id="termsError"></div>
-                </div>
-                <button type="submit" class="btn btn-outline-danger w-100 mb-3" name="signup_btn">Sign Up</button>
-                <div class="text-center">
-                    <p class="mb-0">Already have an account?
-                        <a href="login.php" class="text-danger text-decoration-none">Login</a>
-                    </p>
-                </div>
-            </form>
+    <form id="registrationForm" action="verify.php" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title<span class="text-danger">*</span></label>
+            <select class="form-select" id="title" name="title" data-validation="required" required>
+                <option value="">Select Title</option>
+                <option value="Mr">Mr</option>
+                <option value="Ms">Ms</option>
+                <option value="Mrs">Mrs</option>
+            </select>
+            <span id="titleError" class="text-danger"></span>
         </div>
-    </div>
+
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name*</label>
+            <input type="text" id="first_name" name="first_name" class="form-control form-control-sm"
+                data-validation="required alpha min max" data-min="2" data-max="50" required>
+            <span id="first_nameError" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name*</label>
+            <input type="text" id="last_name" name="last_name" class="form-control form-control-sm"
+                data-validation="required alpha min max" data-min="2" data-max="50" required>
+            <span id="last_nameError" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email*</label>
+            <input type="email" id="email" name="email" class="form-control form-control-sm"
+                data-validation="required email" required>
+            <span id="emailError" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile Number*</label>
+            <input type="tel" id="mobile" name="mobile" class="form-control form-control-sm"
+                data-validation="required numeric min max" pattern="[0-9]{10}" data-min="10" data-max="10" required>
+            <span id="mobileError" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 position-relative">
+            <label for="password" class="form-label">Password*</label>
+            <input type="password" id="password" name="password" class="form-control form-control-sm"
+                data-validation="required strongPassword min max" data-min="8" data-max="20" required>
+            <span id="passwordError" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 position-relative">
+            <label for="confirm_password" class="form-label">Confirm Password*</label>
+            <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-sm"
+                data-validation="required confirmPassword" data-password-id="password" required>
+            <span id="confirm_passwordError" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="profile_picture" class="form-label">Profile Picture</label>
+            <input type="file" class="form-control" id="profile_picture" name="profile_picture"
+                data-validation="file" data-filesize="200">
+            <span id="profile_pictureError" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="terms" name="terms" data-validation="terms">
+            <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
+            <span id="termsError" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-dark px-5" name="signup_btn" id="signup_btn" value="Continue">
+            <p class="mt-2 text-muted">You will receive an activation code by email to validate your account creation.</p>
+        </div>
+    </form>
+
 </div>
 
+
+
 <?php
-include 'footer.php';
+include_once("before-loginheader.php");
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+// Load Composer's autoloader
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+require 'PHPMailer/Exception.php';
+
+// Database connection
+$con = new mysqli("localhost", "root", "", "noraml_user");
+
+if ($con->connect_error) {
+    die("Database Connection Failed: " . $con->connect_error);
+}
+
 if (isset($_POST['signup_btn'])) {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
+    $title = $_POST['title'];
+    $firstname = $_POST['first_name'];
+    $lastname = $_POST['last_name'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
     $password = $_POST['password'];
-    $profile_picture = uniqid() . $_FILES['profile_picture']['name'];
-    $terms = $_POST['terms'];
+    $profile_picture = uniqid() . basename($_FILES['profile_picture']['name']);
     $profile_picture_tmp_name = $_FILES['profile_picture']['tmp_name'];
-    $token = time();
+    $token = uniqid() . time();
 
-    $insert = "INSERT INTO `registration`(`firstname`, `lastname`, `email`, `mobile`, `password`, `profile_picture`, `role`, `status`,`token`) VALUES ('$firstName','$lastName','$email','$mobile','$password','$profile_picture','User','Inactive','$token')";
-    // echo $insert;
-    if ($con->query($insert)) {
+    // Hash the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insert into database using prepared statements
+    $stmt = $con->prepare("INSERT INTO `user` (`title`, `firstname`, `lastname`, `email`, `mobilenumber`, `password`, `images`, `role`, `status`, `token`) VALUES (?, ?, ?, ?, ?, ?, ?, 'user', 'inactive', ?)");
+    $stmt->bind_param("ssssssss", $title, $firstname, $lastname, $email, $mobile, $hashed_password, $profile_picture, $token);
+
+    if ($stmt->execute()) {
         if (!file_exists('images/profile_pictures')) {
-            mkdir('images/profile_pictures');
+            mkdir('images/profile_pictures', 0777, true);
         }
         move_uploaded_file($profile_picture_tmp_name, 'images/profile_pictures/' . $profile_picture);
-        $mail = new PHPMailer();
-        $headers = 'X-Mailer: PHP/' . phpversion();
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-        $token = date('Y-m-d H:i:s');
-        $token = uniqid() . time();
-        $to = $email;
-        $subject = "Account Verification Link";
-        $link = 'http://localhost/php-1/verify.php?email=' . $email . '&token=' . $token;
-        $body = "<div style='background-color: #f8f9fa; padding: 20px; border-radius: 5px;'>
-                    <h2 style='color: #dc3545; text-align: center;'>Account Verification</h2>
-                    <p style='text-align: center;'>Click on the button below to verify your account</p>
-                    <a href='" . $link . "' style='display: block; width: 200px; margin: 0 auto; text-align: center; background-color: #dc3545; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Verify Account</a>
-                </div>";
-        $mail->IsSMTP(); // telling the class to use SMTP
-        $mail->SMTPDebug  = 2;                // enables SMTP debug information (for testing)
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-        $mail->SMTPAuth = true;
-        $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-        $mail->Host       = 'smtp.gmail.com';      // sets GMAIL as the SMTP server
-        $mail->Port       = 465;                   // set the SMTP port for the GMAIL server
-        $mail->Username   = "kansagrajanki@gmail.com";  // GMAIL username(from)
-        $mail->Password   = "password";            // GMAIL password(from)
-        $mail->SetFrom('kansagrajanki@gmail.com', 'Student Demo Website'); //from
-        $mail->AddReplyTo("kansagrajanki@gmail.com", "Student Demo Website"); //to
-        $mail->Subject    = "Account Verification Link";
-        $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
-        $mail->MsgHTML($body);
 
-        $mail->AddAddress($to, "Student Sample Website");
-        if (!$mail->Send()) {
-            setcookie('error', 'Failed to send the registration link', time() + 5);
+        // Send verification email
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPAuth   = true;
+        $mail->SMTPSecure = "ssl";
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->Port       = 465;
+        $mail->Username   = "your-email@gmail.com";  // Replace with your email
+        $mail->Password   = "your-app-password";    // Replace with your app password
+        $mail->setFrom('your-email@gmail.com', 'Your Website');
+        $mail->addReplyTo('your-email@gmail.com', 'Your Website');
+        $mail->addAddress($email);
+        $mail->Subject    = "Account Verification Link";
+
+        $verification_link = 'http://localhost/normal_user/verify.php?email=' . urlencode($email) . '&token=' . $token;
+        $mail->Body       = "Click on this link to verify your account: <a href='$verification_link'>Verify Account</a>";
+        $mail->isHTML(true);
+
+        if ($mail->send()) {
+            echo "Registration successful! Please check your email to verify your account.";
         } else {
-            setcookie('success', 'Registration Successfull. Account verification link has been sent to your email. Verify your email to login.', time() + 5);
+            echo "Error: Could not send verification email.";
         }
     } else {
-        setcookie('error', 'Registration Failed', time() + 5);
+        echo "Error: Registration failed.";
     }
-?>
-    <script>
-        window.location.href = 'signup.php';
-    </script>
-<?php
+    $stmt->close();
 }
+$con->close();
 ?>

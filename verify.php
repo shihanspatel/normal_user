@@ -1,14 +1,15 @@
 <?php
-include_once('header.php');
+include_once('before-loginheader.php');
 if (isset($_GET['email']) && isset($_GET['token'])) {
+$con = mysqli_connect("localhost", "root", "", "noraml_user");
     $email = $_GET['email'];
     $token = $_GET['token'];
-    $sql = "SELECT * FROM registration WHERE email = '$email' AND token = '$token'";
+    $sql = "SELECT * FROM user WHERE email = '$email' AND token = '$token'";
     $count = $con->query($sql);
     $r = mysqli_fetch_assoc($count);
     if ($count->num_rows == 1) {
         if ($r['status'] == 'Inactive') {
-            $update = "UPDATE registration SET status = 'Active' WHERE email = '$email'";
+            $update = "UPDATE noraml_user SET status = 'Active' WHERE email = '$email'";
             if ($con->query($update)) {
                 setcookie('success', 'Account Verification Successful', time() + 5);
             } else {

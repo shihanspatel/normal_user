@@ -1,8 +1,8 @@
-/*<?php
-/*try {
-    $con = mysqli_connect("localhost", "root", "", "normal_user");
+<?php
+try {
+    $con = mysqli_connect("localhost", "root", "", "noraml_user");
     try {
-        $q = "CREATE DATABASE IF NOT EXISTS `2024_25_4DCE_A_B_Sample`";
+        $q = "CREATE DATABASE IF NOT EXISTS `noraml_user`";
 
         if ($con->query($q)) {
             echo "Database Created Successfully";
@@ -13,6 +13,10 @@
 
     // create Registration table
 
+     if(is_file("registration")){
+
+     }
+     else{
         try {
             $registration = "CREATE TABLE `registration` (
       `id` int primary key AUTO_INCREMENT,
@@ -31,6 +35,8 @@
         } catch (Exception $e) {
             echo "Error in Creating Table" . $e->getMessage();
         }
+     }
 } catch (Exception $e) {
     echo "Error in Connecting with Database Server" . $e->getMessage();;
-}*/
+}
+?>

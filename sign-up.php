@@ -1,20 +1,3 @@
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script> -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script> -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/universal_validation.js"></script>
-<link href=" css/bootstrap-icons.css">
-<script src="js/additional-methods.min.js">
-</script>
-
-</script>
-</head>
-
 
 <?php
 include_once("before-loginheader.php");
@@ -67,7 +50,7 @@ require('PHPMailer\Exception.php');;
     <p>Already have a MyLV account? <a href="login.php" class="text-decoration-none">Log in here.</a></p>
     <p class="text-end text-danger">* Required fields</p>
 
-    <form id="registrationForm" action="after-login-index.php" method="POST">
+    <form id="registrationForm" action="sign-up.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title" class="form-label">Title<span class="text-danger">*</span></label>
             <select class="form-select" id="title" name="title" data-validation="required" required>
@@ -135,7 +118,7 @@ require('PHPMailer\Exception.php');;
         </div>
 
         <div class="text-center">
-            <input type="submit" class="btn btn-dark px-5" name="signup_btn" value="Continue">
+            <input type="submit" class="btn btn-dark px-5" name="signup_btn" id="signup_btn" value="Continue">
             <p class="mt-2 text-muted">You will receive an activation code by email to validate your account creation.</p>
         </div>
     </form>
@@ -145,9 +128,12 @@ require('PHPMailer\Exception.php');;
 
 
 <?php
-$con = mysqli_connect("localhost", "root", "", "normal_user");
+$con = mysqli_connect("localhost", "root", "", "noraml_user");
+
 
 if (isset($_POST['signup_btn'])) {
+
+    $title = $_POST['title'];
     $firstname = $_POST['first_name'];
     $lastname = $_POST['last_name'];
     $email = $_POST['email'];
@@ -158,10 +144,14 @@ if (isset($_POST['signup_btn'])) {
     $terms = $_POST['terms'];
     $profile_picture_tmp_name = $_FILES['profile_picture']['tmp_name'];
     $token = time();
+   
 
-    $insert = "INSERT INTO `user`( `firstname`, `lastname`, `email`, `mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`) VALUES ('$firstname','$lastname','$email','$mobile','$password','$c_password','$profile_picture','user','inactive','$token')";
+    $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`, `email`, `mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
+     VALUES ('$title','$firstname','$lastname','$email','$mobile','$password','$c_password','$profile_picture','user','inactive','$token')";
 
-    if ($con->query($insert)) {
+    if (mysqli_query($con,$insert)) {
+       
+
         if (!file_exists('images/profile_pictures')) {
             mkdir('images/profile_pictures');
         }
@@ -200,7 +190,7 @@ if (isset($_POST['signup_btn'])) {
         $mail->Username   = "bhaiphp@gmail.com";  // GMAIL username(from)
         $mail->Password   = "tqnp vikw vnqb mdrb";            // GMAIL password(from)
         $mail->SetFrom('bhaiphp@gmail.com', 'Luis Vitton'); //from
-        $mail->AddReplyTo("bhaiphp@gmail.com", "Luis Vitton"); //to
+        $mail->AddReplyTo("$to", "Luis Vitton"); //to
         $mail->Subject    = "Account Verification Link";
         $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
         $mail->MsgHTML($body);
