@@ -14,7 +14,7 @@ $con = mysqli_connect("localhost", "root", "", "noraml_user");
 ?>
 
 <div class="text-center mt-4">
-    <h3><?php echo $r['firstname']; ?></h3>
+    <h3><?php echo $row['firstname']; ?></h3>
 </div>
 
 <div class="container mt-5">
