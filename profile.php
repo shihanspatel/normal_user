@@ -1,27 +1,19 @@
 <?php 
-
 include_once("After-login-header.php");
+$con = mysqli_connect("localhost", "root", "", "noraml_user");
 
-// if (isset($_POST['email']) && isset($_POST['token'])){
+$email = $_SESSION['email'];
+// echo $email;
+$q = "select * from user where email='$email'";
+$result = $con->query($q);
+$row = mysqli_fetch_assoc($result);
 
-// $con = mysqli_connect("localhost", "root", "", "noraml_user");
-//     $email = $_POST['email'];
-//     $token = $_POST['token'];
-//     $sql = "SELECT * FROM user WHERE email = '$email' AND token = '$token'";
-//     $count = $con->query($sql);
-//     $row = mysqli_fetch_assoc($count);
-// }
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
 
-    $fetch = "select * from register where id=$id";
-    $result = $con->query($fetch);
-    $data = mysqli_fetch_assoc($result);
-}
+
 ?>
 
 <div class="text-center mt-4">
-    <h3><?php echo $data['firstname']; ?></h3>
+    <h3><?php echo $row['firstname']; ?></h3>
 </div>
 
 <div class="container mt-5">
@@ -30,11 +22,11 @@ if (isset($_POST['id'])) {
             <div class="card p-4">
                 <h2>My Profile</h2>
                 <hr>
-                <p>Title:- Mr.</p>
-                <p>Country:- India</p>
-                <p>E-mail:- shihanspatel07@gmail.com</p>
-                <p>Gander:- Male</p>
-                <p>Mobile Number:- 8780074890</p>
+                <p>Title:- <?php echo "$row[title]";?></p>
+                <p>Country:-  <?php echo "$row[title]";?></p>
+                <p>E-mail:- <?php echo $row['email'];?></p>
+                <p>Gander:-  <?php echo "$row[title]";?></p>
+                <p>Mobile Number:-  <?php echo "$row[title]";?></p>
                 <a href="edit-profile.php"><button class="btn btn-outline-dark mt-3 btn-block">Edit My Profile</button></a>
 
 

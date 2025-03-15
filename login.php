@@ -58,24 +58,24 @@
 
      
     if (isset($_POST['sign_in-btn'])) {
-        $em = $_POST['email'];
+        $email = $_POST['email'];
         $pwd = $_POST['password'];
     
-        $q = "select * from user where email='$em' and password='$pwd'";
+        $q = "select * from user where email='$email' and password='$pwd'";
     
         $result = $con->query($q);
         if ($result->num_rows == 1) {
             $row = mysqli_fetch_assoc($result);
             if ($row['status'] == 'Active') {
                 if ($row['role'] == "Admin") {
-                    $_SESSION['admin'] = $em;
+                    $_SESSION['admin'] = $email;
     ?>
                     <script>
                         window.location.href = "Admin_Panel/Dashboard.php";
                     </script>
                 <?php
                 } else {
-                    $_SESSION['user'] = $em;
+                    $_SESSION['user'] = $email;
                 ?>
                     <script>
                         window.location.href = "after-login-index.php";

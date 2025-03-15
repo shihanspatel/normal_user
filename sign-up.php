@@ -151,6 +151,7 @@ if (isset($_POST['signup_btn'])) {
     $mobile = $_POST['mobile'];
     $password = $_POST['password'];
     $c_password = $_POST['confirm_password'];
+    $hash_pass = password_hash($_POST['confirm_password'], PASSWORD_DEFAULT);;
     $profile_picture = uniqid() . $_FILES['profile_picture']['name'];
     $terms = $_POST['terms'];
     $profile_picture_tmp_name = $_FILES['profile_picture']['tmp_name'];
@@ -158,7 +159,7 @@ if (isset($_POST['signup_btn'])) {
 
 
     $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`,`gender`,`email`, `mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
-     VALUES ('$title','$firstname','$lastname','$gender','$email','$mobile','$password','$c_password','$profile_picture','user','inactive','$token')";
+     VALUES ('$title','$firstname','$lastname','$gender','$email','$mobile','$password','$hash_pass','$profile_picture','user','inactive','$token')";
 
     if (mysqli_query($con, $insert)) {
 
@@ -172,7 +173,7 @@ if (isset($_POST['signup_btn'])) {
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html;charset=iso-8859-1\r\n";
         $token = date('Y-m-d H:i:s');
-        $token = uniqid() . time();
+        $token = time();
         $to = $email;
         $subject = "Account Verification Link";
 

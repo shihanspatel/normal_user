@@ -1,15 +1,15 @@
 <?php
 try {
     $con = mysqli_connect("localhost", "root", "", "noraml_user");
-    // try {
-    //     $q = "CREATE DATABASE IF NOT EXISTS `noraml_user`";
+    try {
+        $q = "CREATE DATABASE IF NOT EXISTS `noraml_user`";
 
-    //     if ($con->query($q)) {
-    //         echo "Database Created Successfully";
-    //     }
-    // } catch (Exception $e) {
-    //     echo "Error in Creating Database" . $e->getMessage();
-    // }
+        if ($con->query($q)) {
+            echo "Database Created Successfully";
+        }
+    } catch (Exception $e) {
+        echo "Error in Creating Database" . $e->getMessage();
+    }
 
     // // create Registration table
 
