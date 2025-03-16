@@ -1,10 +1,17 @@
-<?php include('index.php'); ?>
+<?php
+include_once("index.php");
+$con = mysqli_connect("localhost", "root", "", "noraml_user");
+$email = $_SESSION['Admin'];
+// echo $email;
+$q = "select * from user where email='$email'";
+$result = $con->query($q);
+$row = mysqli_fetch_assoc($result); ?>
 
 <script src="validation.js"></script>
 <script src="jquery-3.7.1.min.js"></script>
 <script src="jquery.validate.min.js"></script>
 <script src="additional-methods.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>  
+<script src="js/bootstrap.bundle.min.js"></script>
 
 <div class="col-11">
     <div class="container my-4">
@@ -13,8 +20,8 @@
                 <div class="card text-center shadow-sm border-light">
                     <div class="card-body">
                         <img src="images/priyal.jpg" alt="Profile Image" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid green;">
-                        <h5 class="card-title mb-1" id="profileFullName">Priyal</h5>
-                        <p class="text-muted" id="profileRole">Web Developer</p>
+                        <h5 class="card-title mb-1" id="profileFullName"><?php echo $row['firstname']; ?></h5>
+                        <!-- <p class="text-muted" id="profileRole">Web Developer</p> -->
                         <div class="d-flex justify-content-center mt-4">
                             <div class="p-2 rounded">
                                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
@@ -100,7 +107,7 @@
                                     <textarea class="form-control" id="editAddress" name="editAddress" rows="3" data-validation="required min" data-min="10"></textarea>
                                     <span class="text-danger" id="editAddressError"></span>
                                 </div>
-                                <button type="submit" class="btn btn-outline-primary">Save Changes</button>
+                                <button type="submit" class="btn btn-outline-primary" id="save" name="save">Save Changes</button>
                             </form>
                         </div>
                     </div>
@@ -111,11 +118,24 @@
     </div>
 </div>
 
-<!-- Bootstrap & jQuery -->
-
-
-
-
 </body>
 
+
 </html>
+<?php
+
+if (isset($_GET['save'])) {
+    $firstname = $_GET['editFullName'];
+    $mail = $_GET['editEmail'];
+    $gender = $_GET['editGender'];
+    $number = $_GET['editPhone'];
+  
+
+
+
+    $update = "update `user` set `firstname`='$firstname',`email`='$mail',`gender`='$gender',`mobilenumber`='$number'";
+    $run=$con->query($update);
+    
+}
+
+?>

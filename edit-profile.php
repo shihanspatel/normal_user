@@ -75,7 +75,7 @@ include_once("After-login-header.php");
                     </div>
 
                     <center>
-                        <input type="submit" class="btn btn-dark btn-lg rounded-pill w-75 btn-hover-effect" id="submitUserForm" value="Save Your Information">
+                        <input type="submit" class="btn btn-dark btn-lg rounded-pill w-75 btn-hover-effect" id="save" name="save" value="Save Your Information">
                     </center>
                 </form>
 
@@ -105,4 +105,22 @@ include_once("After-login-header.php");
 
 <?php
 include('footer.php');
+
+$con = mysqli_connect("localhost", "root", "", "noraml_user");
+
+if (isset($_GET['save'])) {
+    $firstname = $_GET['firstName'];
+    $lastname = $_GET['lastName'];
+    $title = $_GET['title'];
+    $gender = $_GET['gender'];
+    $country = $_GET['country'];
+    $images = $_GET['img'];
+
+
+
+    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`title`='$title',`gender`='$gender',`images`='$images'";
+
+    $run = $con->query($update);
+}
+
 ?>
