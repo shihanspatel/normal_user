@@ -3,7 +3,6 @@ include_once("After-login-header.php");
 $con = mysqli_connect("localhost", "root", "", "noraml_user");
 
 $email = $_SESSION['user'];
-// echo $email;
 $q = "select * from user where email='$email'";
 $result = $con->query($q);
 $row = mysqli_fetch_assoc($result);
@@ -25,7 +24,7 @@ $row = mysqli_fetch_assoc($result);
                 <p>Title:- <?php echo "$row[title]"; ?></p>
                 <p>Country:- <?php echo "$row[title]"; ?></p>
                 <p>E-mail:- <?php echo $row['email']; ?></p>
-                <p>Gander:- <?php echo "$row[title]"; ?></p>
+                <p>Gander:- <?php echo "$row[gender]"; ?></p>
                 <p>Mobile Number:- <?php echo "$row[mobilenumber]"; ?></p>
                 <a href="edit-profile.php"><button class="btn btn-outline-dark mt-3 btn-block">Edit My Profile</button></a>
 
@@ -47,4 +46,4 @@ $row = mysqli_fetch_assoc($result);
     <button type="button" class="btn btn-outline-danger" style="border-radius:50px"><a href="login.php" style="text-decoration: none; color:black;">Logout</a></button>
 </div>
 <br>
-<?php include_once("footer.php"); ?>
+<?php include_once("footer.php");?>

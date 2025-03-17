@@ -70,7 +70,7 @@ include_once("After-login-header.php");
 
                     <div class="mb-3">
                         <label for="img" class="form-label">Select Your Image<span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" id="img" name="img" data-validation="file" required>
+                        <input type="file" class="form-control" id="img" name="img">
                         <span id="imgError" class="text-danger"></span>
                     </div>
 
@@ -115,7 +115,7 @@ if (isset($_GET['save'])) {
     $gender = $_GET['gender'];
     $country = $_GET['country'];
     $images = $_GET['img'];
-   
+
     $userEmail = $_SESSION['user'];
 
 

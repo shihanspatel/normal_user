@@ -20,7 +20,7 @@
               <h2>Welcome Back</h2>
               <p class="text">Sign in with your email address and your password.</p>
               <p class="required">Required fields*</p>
-              <form action="login.php" method="post" id="login-form">
+              <form action="login.php" method="get" id="login-form">
                   <div class="mb-3">
                       <label for="email" class="form-label">Email*</label>
 
@@ -57,19 +57,18 @@
         $con = mysqli_connect("localhost", "root", "", "noraml_user");
 
 
-        if (isset($_POST['sign_in-btn'])) {
-            $email = $_POST['email'];
-            $pwd = $_POST['password'];
+        if (isset($_GET['sign_in-btn'])) {
+            $email = $_GET['email'];
+            $pwd = $_GET['password'];
 
             $q = "select * from user where email='$email' and password='$pwd'";
 
             $result = $con->query($q);
             if ($result->num_rows == 1) {
                 $row = mysqli_fetch_assoc($result);
-                if ($row['status'] == 'Active') {
-                    if ($row['role'] == "Admin") {
+                if ($row['status'] == 'active') {
+                    if ($row['role'] == "admin") {
                         $_SESSION['admin'] = $email;
-                        echo $_SESSION['admin'];
         ?>
                       <script>
                           window.location.href = "Admin_Panel/Dashboard.php";

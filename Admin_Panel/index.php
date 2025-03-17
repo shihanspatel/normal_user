@@ -1,13 +1,6 @@
 <?php
 session_start();
-
-if (isset($_SESSION['Admin'])) {
-?>
-    <script>
-        window.location.href = "login.php";
-    </script>
-<?php
-}
+$email = $_SESSION['admin'];
 ?>
 
 <!DOCTYPE html>
