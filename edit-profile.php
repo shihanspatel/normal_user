@@ -104,8 +104,6 @@ if (isset($_GET['save'])) {
     $address = $_GET['text'];
 
     $userEmail = $_SESSION['user'];
-   
-
 
     $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`title`='$title',`gender`='$gender',`images`='$images',`Address`='$address' where `email`='$userEmail'";
 
