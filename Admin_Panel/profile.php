@@ -20,7 +20,7 @@ $row = mysqli_fetch_assoc($result); ?>
             <div class="col-xxl-9" style="margin: auto;">
                 <div class="card text-center shadow-sm border-light">
                     <div class="card-body">
-                        <img src="../images/profile_pictures/<?php echo $row['images'] ?? 'default.jpg'; ?>" class="rounded-circle mb-3"
+                        <img src="images/profile_pictures/<?php echo $row['images'] ?? 'default.jpg'; ?>" class="rounded-circle mb-3"
                             style="width: 150px; height: 150px; object-fit: cover; border: 4px solid green;">
 
                         <h5 class="card-title mb-1" id="profileFullName"><?php echo $row['firstname'] . " " . $row['lastname']; ?></h5>
