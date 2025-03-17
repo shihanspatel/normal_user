@@ -115,10 +115,12 @@ if (isset($_GET['save'])) {
     $gender = $_GET['gender'];
     $country = $_GET['country'];
     $images = $_GET['img'];
+   
+    $userEmail = $_SESSION['user'];
 
 
 
-    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`title`='$title',`gender`='$gender',`images`='$images'";
+    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`title`='$title',`gender`='$gender',`images`='$images' where `email`='$userEmail'";
 
     $run = $con->query($update);
 }

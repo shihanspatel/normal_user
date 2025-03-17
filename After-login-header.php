@@ -406,7 +406,7 @@
                         <a class="nav-link" href="about&contactus.php">About</a>
                     </li>
                 </ul>
-                <a href="profile.php"> <img src="images/istockphoto-1399565382-612x612.jpg" alt="" class="user-img" height="50px" width="50px" style="border-radius: 100%;"></a>
+                <a href="profile.php"> <img src="<?php echo "$row[images]";?>" alt="" class="user-img" height="50px" width="50px" style="border-radius: 100%;"></a>
             </div>
         </div>
         </div>

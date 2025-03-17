@@ -69,6 +69,7 @@
                 if ($row['status'] == 'Active') {
                     if ($row['role'] == "Admin") {
                         $_SESSION['admin'] = $email;
+                        echo $_SESSION['admin'];
         ?>
                       <script>
                           window.location.href = "Admin_Panel/Dashboard.php";

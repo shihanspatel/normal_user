@@ -1,5 +1,6 @@
      <?php
         include_once("After-login-header.php");
+        $email = $_SESSION['user'];
         ?>
 
 
@@ -57,7 +58,7 @@
          </div>
      </div>
 
-     
+
 
      <br><br>
 

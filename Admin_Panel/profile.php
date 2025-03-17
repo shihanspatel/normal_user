@@ -1,8 +1,7 @@
 <?php
 include_once("index.php");
 $con = mysqli_connect("localhost", "root", "", "noraml_user");
-$email = $_SESSION['Admin'];
-// echo $email;
+
 $q = "select * from user where email='$email'";
 $result = $con->query($q);
 $row = mysqli_fetch_assoc($result); ?>
@@ -130,10 +129,10 @@ if (isset($_GET['save'])) {
     $gender = $_GET['editGender'];
     $number = $_GET['editPhone'];
   
+    $userEmail = $_SESSION['Admin'];
 
 
-
-    $update = "update `user` set `firstname`='$firstname',`email`='$mail',`gender`='$gender',`mobilenumber`='$number'";
+    $update = "update `user` set `firstname`='$firstname',`email`='$mail',`gender`='$gender',`mobilenumber`='$number' email`='$userEmail'";
     $run=$con->query($update);
     
 }
