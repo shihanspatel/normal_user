@@ -158,7 +158,7 @@ if (isset($_POST['signup_btn'])) {
     $password = $_POST['password'];
     $c_password = $_POST['confirm_password'];
     $hash_pass = password_hash($_POST['confirm_password'], PASSWORD_DEFAULT);;
-    $profile_picture = uniqid() . $_FILES['profile_picture']['name'];
+    $profile_picture =  $_FILES['profile_picture']['name'];
     $terms = $_POST['terms'];
     $profile_picture_tmp_name = $_FILES['profile_picture']['tmp_name'];
     $token = time();
