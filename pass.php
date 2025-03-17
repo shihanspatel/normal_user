@@ -100,7 +100,7 @@ include_once("After-login-header.php");
         <h2>Change Password</h2>
         <!-- <p class="text">Forgeoted your Password No needs To be Worried</p> -->
         <p class="required">Required fields*</p>
-        <form action="profile.php" method="post" id="login-form">
+        <form action="pass.php" method="post" id="login-form">
 
             <div class="mb-3">
                 <label for="old_password" class="form-label">Enter Old Password*</label>
@@ -130,21 +130,20 @@ $con = mysqli_connect("localhost", "root", "", "noraml_user");
 if (isset($_POST['save'])) {
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
-     $userEmail = $_SESSION['user'];
-    
+    $emailUser = $_SESSION['user'];
     // Code to update password in the database here
-    $q = "select * from user where email= '$email'";
+    $q = "select * from user where email= '$emailUser'";
     $result = $con->query($q);
     $row = mysqli_fetch_assoc($result);
-    if ($current_password == $row['password']) {
-        $update = "UPDATE `user` SET password='$new_password' where email = '$userEmail'";
+    if ($current_password != $row['password']) {
+        $update = "UPDATE user SET password='$new_password' WHERE email='$emailUser'";
         if ($con->query($update)) {
-            setcookie('success', 'Password updated successfully', time() + 5);
+            setcookie('success', 'Password updated successfully', time() + 5,"/");
         } else {
-            setcookie('error', 'Error in updating password', time() + 5);
+            setcookie('error', 'Error in updating password', time() + 5,"/");
         }
     } else {
-        setcookie('error', 'Current password is incorrect', time() + 5);
+        setcookie('error', 'Current password is incorrect', time() + 5,"/");
     }
-    }
+}
 ?>
