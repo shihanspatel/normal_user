@@ -23,7 +23,7 @@ include_once("After-login-header.php");
                             <option value="Mr">Mr</option>
                             <option value="Ms">Ms</option>
                             <option value="Mrs">Mrs</option>
-                            <option value="Dr">Dr</option>
+                           
                         </select>
                         <span id="titleError" class="text-danger"></span>
                     </div>

@@ -11,8 +11,11 @@
   <script src="js/universal_validation.js"></script>
 
   <body>
+
+
       <?php
         include_once("before-loginheader.php");
+
         ?>
       <div class="containerr d-flex flex-wrap justify-content-between">
 
@@ -51,52 +54,41 @@
           </div>
       </div>
       <?php
-        include 'footer.php';
-        session_start();
 
         $con = mysqli_connect("localhost", "root", "", "noraml_user");
 
-
         if (isset($_GET['sign_in-btn'])) {
-            $email = $_GET['email'];
-            $pwd = $_GET['password'];
+    $email = $_GET['email'];
+    $pwd = $_GET['password'];
 
-            $q = "select * from user where email='$email' and password='$pwd'";
+    $q = "SELECT * FROM user WHERE email='$email' AND password='$pwd'";
+    $result = $con->query($q);
 
-            $result = $con->query($q);
-            if ($result->num_rows == 1) {
-                $row = mysqli_fetch_assoc($result);
-                if ($row['status'] == 'active') {
-                    if ($row['role'] == "admin") {
-                        $_SESSION['admin'] = $email;
-        ?>
-                      <script>
-                          window.location.href = "Admin_Panel/Dashboard.php";
-                      </script>
-                  <?php
-                    } else {
-                        $_SESSION['user'] = $email;
-                    ?>
-                      <script>
-                          window.location.href = "after-login-index.php";
-                      </script>
-                  <?php
-                    }
-                } else {
-                    setcookie("error", "Email is not varified", time() + 5, "/");
-                    ?>
-                  <script>
-                      window.location.href = "login.php";
-                  </script>
-              <?php
-                }
+    if ($result->num_rows == 1) {
+        $row = mysqli_fetch_assoc($result);
+        if ($row['status'] == 'active') {
+            if ($row['role'] == "admin") {
+                $_SESSION['admin'] = $email;
+                echo "<script>window.location.href = 'Admin_Panel/Dashboard.php';</script>";
+                exit();
             } else {
-                setcookie("error", "Invalid username or password", time() + 5, "/");
-                ?>
-              <script>
-                  window.location.href = "login.php";
-              </script>
-      <?php
+                $_SESSION['user'] = $email;
+                echo "<script>window.location.href = 'after-login-index.php';</script>";
+                exit();
             }
+        } else {
+            setcookie("error", "Email is not verified", time() + 5, "/");
+            echo "<script>window.location.href = 'login.php';</script>";
+            exit();
         }
-        ?>
+    } else {
+        setcookie("error", "Invalid username or password", time() + 5, "/");
+        echo "<script>window.location.href = 'login.php';</script>";
+        exit();
+    }
+}
+
+include 'footer.php';
+
+
+?>
