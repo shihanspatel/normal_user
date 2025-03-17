@@ -54,24 +54,14 @@ include_once("After-login-header.php");
                     </div>
 
                     <div class="mb-3">
-                        <label for="country" class="form-label">Country/Region<span class="text-danger">*</span></label>
-                        <select class="form-select" id="country" name="country" data-validation="required">
-                            <option value="">Select Country</option>
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
-                            <option value="UK">UK</option>
-                            <option value="Canada">Canada</option>
-                        </select>
-                        <span id="countryError" class="text-danger"></span>
-                    </div>
-
-
-
-
-                    <div class="mb-3">
                         <label for="img" class="form-label">Select Your Image<span class="text-danger">*</span></label>
                         <input type="file" class="form-control" id="img" name="img">
                         <span id="imgError" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="img" class="form-label">Change Your Address<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="text" name="text"data-validation="required">
+                        <span id="textError" class="text-danger"></span>
                     </div>
 
                     <center>
@@ -88,25 +78,21 @@ include_once("After-login-header.php");
                 <p>Receive digital communications for first access to latest collections, campaigns, and videos.</p>
                 <!-- <button class="btn btn-dark  rounded-pill  btn-hover-effect">Unsubscribe</button> -->
             </div>
-            <div class="info-box mt-4">
-                <h4>Primary,</h4>
-                <p><strong>Email:-</strong> shihanspatel07@gmail.com</p>
-                <p><strong>Mobile Number:-</strong> +91-8780076890</p>
-                <button class="btn btn-dark rounded-pill " id="s"><a href="pass.php" style="text-decoration: none; color:#ffffff">Change Password</a></button>
-            </div>
-            <div class="info-box mt-4">
-                <h4>My Address Book</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo natus inventore qui, adipisci quaerat sed eaque non amet ut ratione, nemo ea aliquid ullam repellat, laborum ipsam modi minima harum.</p>
-                <button class="btn btn-dark rounded-pill "><a href="change address.php" style="text-decoration: none; color:white">Change Address</a></button>
-            </div>
+            
+            
         </div>
     </div>
 </div>
 
 <?php
 include('footer.php');
-
 $con = mysqli_connect("localhost", "root", "", "noraml_user");
+
+$email = $_SESSION['user'];
+$q = "select * from user where email='$email'";
+$result = $con->query($q);
+$row = mysqli_fetch_assoc($result);
+
 
 if (isset($_GET['save'])) {
     $firstname = $_GET['firstName'];
@@ -115,12 +101,13 @@ if (isset($_GET['save'])) {
     $gender = $_GET['gender'];
     $country = $_GET['country'];
     $images = $_GET['img'];
+    $address = $_GET['text'];
 
     $userEmail = $_SESSION['user'];
+   
 
 
-
-    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`title`='$title',`gender`='$gender',`images`='$images' where `email`='$userEmail'";
+    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`title`='$title',`gender`='$gender',`images`='$images',`Address`='$address' where `email`='$userEmail'";
 
     $run = $con->query($update);
 }

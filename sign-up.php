@@ -113,6 +113,12 @@ require('PHPMailer\Exception.php');;
                 data-validation="required confirmPassword" data-password-id="password" required>
             <span id="confirm_passwordError" class="text-danger"></span>
         </div>
+        
+        <div class="mb-3">
+            <label for="profile_picture" class="form-label">Address</label>
+            <textarea name="address" id="address" class="form-control" data-validation="required alpha"></textarea>
+            <span id="addressError" class="text-danger"></span>
+        </div>
 
         <div class="mb-3">
             <label for="profile_picture" class="form-label">Profile Picture</label>
@@ -120,7 +126,7 @@ require('PHPMailer\Exception.php');;
                 data-validation="file" data-filesize="200">
             <span id="profile_pictureError" class="text-danger"></span>
         </div>
-
+     
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="terms" name="terms" data-validation="terms">
             <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
@@ -156,10 +162,11 @@ if (isset($_POST['signup_btn'])) {
     $terms = $_POST['terms'];
     $profile_picture_tmp_name = $_FILES['profile_picture']['tmp_name'];
     $token = time();
+    $address = $_POST['address'];
 
 
-    $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`,`gender`,`email`, `mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
-     VALUES ('$title','$firstname','$lastname','$gender','$email','$mobile','$password','$hash_pass','$profile_picture','user','inactive','$token')";
+    $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`,`gender`,`email`, `address`,`mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
+     VALUES ('$title','$firstname','$lastname','$gender','$email','$address','$mobile','$password','$hash_pass','$profile_picture','user','inactive','$token')";
 
     if (mysqli_query($con, $insert)) {
 

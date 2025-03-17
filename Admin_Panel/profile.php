@@ -70,7 +70,7 @@ $row = mysqli_fetch_assoc($result); ?>
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-bold">Address</label>
                             <div class="col-sm-8">
-                                <p class="form-control-plaintext" id="profileAddress">Lorem ipsum dolor sit amet.</p>
+                                <p class="form-control-plaintext" id="profileAddress"><?php echo $row['Address']; ?></p>
                             </div>
                         </div>
                     </div>
@@ -146,11 +146,11 @@ if (isset($_GET['save'])) {
     $gender = $_GET['editGender'];
     $number = $_GET['editPhone'];
     $image = $_GET['img'];
-
+    $address = $_GET['editAddress'];
     $adminEmail = $_SESSION['admin'];
 
 
-    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`gender`='$gender',`mobilenumber`='$number' where email='$adminEmail'";
+    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`gender`='$gender',`mobilenumber`='$number',`Address`='$address' where email='$adminEmail'";
     $run = $con->query($update);
 
     

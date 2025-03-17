@@ -104,25 +104,19 @@ include_once("After-login-header.php");
 
             <div class="mb-3">
                 <label for="old_password" class="form-label">Enter Old Password*</label>
-                <input type="password" id="old_password" name="old_password" class="form-control"
+                <input type="password" id="current_password" name="current_password" class="form-control"
                     data-validation="required">
                 <span id="old_passwordError" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Enter New Password*</label>
-                <input type="password" id="password" name="password" class="form-control"
+                <input type="password" id="new_password" name="new_password" class="form-control"
                     data-validation="required strongPassword" data-min="8" data-max="20">
                 <span id="passwordError" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label for="c_password" class="form-label">Confirm New Password*</label>
-                <input type="password" id="c_password" name="c_password" class="form-control"
-                    data-validation="required c_Password" data-password-id="password">
-                <span id="c_passwordError" class="text-danger"></span>
-            </div>
-            <input type="submit" value="Save" class="btn btn-secondary mt-3">
+            <input type="submit" value="Save" name="save" id="save" class="btn btn-secondary mt-3">
         </form>
 
         <!-- <p class="mt-3">Don't have a MyLV account? <a href="login.php">Create an Account</a></p> -->
@@ -130,66 +124,27 @@ include_once("After-login-header.php");
 </div>
 
 
+<?php include_once("footer.php");
 
-<!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script> -->
-
-
-<script>
-    // $(document).ready(function() {
-    //     $("#login-form").validate({
-    //         rules: {
-    //             password: {
-    //                 required: true,
-    //                 minlength: 8,
-    //                 maxlength: 20,
-    //                 pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{10,20}$/
-
-    //             },
-    //             c_passeord: {
-    //                 required: true,
-    //                 equalTo: "#password"
-    //             },
-    //             old_password: {
-    //                 required: true,
-    //                 minlength: 8,
-    //                 maxlength: 20,
-    //                 pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{10,20}$/
-    //             }
-    //         },
-    //         messages: {
-    //             password: {
-    //                 required: "Please enter your password.",
-    //                 minlength: "Minmum length is 8",
-    //                 maxlength: "maximum length is 20",
-    //                 pattern: "INvalid syntex it shoud contain 1 uppercase 1lowercaser numbers and at least 1 special symbol"
-    //             },
-    //             c_passeord: {
-    //                 required: "Please enter your password",
-    //                 equalTo: "Your entered password is not matching"
-    //             },
-    //             old_password: {
-    //                 required: "Please enter your password.",
-    //                 minlength: "Minmum length is 8",
-    //                 maxlength: "maximum length is 20",
-    //                 pattern: "INvalid syntex it shoud contain 1 uppercase 1lowercaser numbers and at least 1 special symbol"
-    //             }
-    //         },
-    //         errorElement: "div",
-    //         errorPlacement: function(error, element) {
-    //             error.addClass("text-danger");
-    //             error.insertAfter(element);
-    //         },
-    //         highlight: function(element) {
-    //             $(element).addClass("is-invalid");
-    //         },
-    //         submitHandler: function(form) {
-    //             alert("Form submitted successfully!");
-    //             form.submit();
-    //         }
-    //     });
-    // });
-</script>
-
-<?php include_once("footer.php"); ?>
+$con = mysqli_connect("localhost", "root", "", "noraml_user");
+if (isset($_POST['save'])) {
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+     $userEmail = $_SESSION['user'];
+    
+    // Code to update password in the database here
+    $q = "select * from user where email= '$email'";
+    $result = $con->query($q);
+    $row = mysqli_fetch_assoc($result);
+    if ($current_password == $row['password']) {
+        $update = "UPDATE `user` SET password='$new_password' where email = '$userEmail'";
+        if ($con->query($update)) {
+            setcookie('success', 'Password updated successfully', time() + 5);
+        } else {
+            setcookie('error', 'Error in updating password', time() + 5);
+        }
+    } else {
+        setcookie('error', 'Current password is incorrect', time() + 5);
+    }
+    }
+?>
