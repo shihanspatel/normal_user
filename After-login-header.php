@@ -1,21 +1,28 @@
 <?php 
     session_start();
+    // Database connection and query for user data
+    $con = mysqli_connect("localhost", "root", "", "noraml_user");
+    $email = $_SESSION['user'];
+    $q = "SELECT * FROM user WHERE email='$email'";
+    $result = $con->query($q);
+    $row = mysqli_fetch_assoc($result);
     if (isset($_COOKIE['success'])) {
         ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> <?php echo $_COOKIE['success']; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> <?php echo $_COOKIE['success']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <?php
-        }
-        if (isset($_COOKIE['error'])) {
+    }
+    if (isset($_COOKIE['error'])) {
         ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong><?php echo $_COOKIE['error']; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong><?php echo $_COOKIE['error']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <?php
-        }?>
+    }
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -370,6 +377,7 @@
 </head>
 
 
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f0f0f0">
         <div class="container-fluid">
@@ -420,7 +428,7 @@
                         <a class="nav-link" href="about&contactus.php">About</a>
                     </li>
                 </ul>
-                <a href="profile.php"> <img src="images/profile_pictures/<?php echo "$row[images]";?>" alt="" class="user-img" height="50px" width="50px" style="border-radius: 100%;"></a>
+                <a href="profile.php"> <img src='images/profile_pictures/<?php echo htmlspecialchars($row['images'] ?? 'default_profile.jpg');?>' alt="" class="user-img" height="50px" width="50px" style="border-radius: 100%;"></a>
             </div>
         </div>
         </div>

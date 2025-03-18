@@ -15,7 +15,7 @@ include_once("After-login-header.php");
         <div class="col-md-6">
             <div class="info-box">
                 <h4>Personal Information</h4>
-                <form id="userForm" action="edit-profile.php">
+                <form id="userForm" action="edit-profile.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title<span class="text-danger">*</span></label>
                         <select class="form-select" id="title" name="title" data-validation="required">
@@ -23,7 +23,6 @@ include_once("After-login-header.php");
                             <option value="Mr">Mr</option>
                             <option value="Ms">Ms</option>
                             <option value="Mrs">Mrs</option>
-                           
                         </select>
                         <span id="titleError" class="text-danger"></span>
                     </div>
@@ -59,8 +58,8 @@ include_once("After-login-header.php");
                         <span id="imgError" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label for="img" class="form-label">Change Your Address<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="text" name="text"data-validation="required">
+                        <label for="text" class="form-label">Change Your Address<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="text" name="text" data-validation="required">
                         <span id="textError" class="text-danger"></span>
                     </div>
 
@@ -68,7 +67,6 @@ include_once("After-login-header.php");
                         <input type="submit" class="btn btn-dark btn-lg rounded-pill w-75 btn-hover-effect" id="save" name="save" value="Save Your Information">
                     </center>
                 </form>
-
             </div>
         </div>
         <div class="col-md-6">
@@ -76,10 +74,7 @@ include_once("After-login-header.php");
                 <h4>My Newsletter</h4>
                 <p>Discover the latest newsletter</p>
                 <p>Receive digital communications for first access to latest collections, campaigns, and videos.</p>
-                <!-- <button class="btn btn-dark  rounded-pill  btn-hover-effect">Unsubscribe</button> -->
             </div>
-            
-            
         </div>
     </div>
 </div>
@@ -93,21 +88,40 @@ $q = "select * from user where email='$email'";
 $result = $con->query($q);
 $row = mysqli_fetch_assoc($result);
 
-
-if (isset($_GET['save'])) {
-    $firstname = $_GET['firstName'];
-    $lastname = $_GET['lastName'];
-    $title = $_GET['title'];
-    $gender = $_GET['gender'];
-    $country = $_GET['country'];
-    $images = $_GET['img'];
-    $address = $_GET['text'];
-
+if (isset($_POST['save'])) {
+    $firstname = $_POST['firstName'];
+    $lastname = $_POST['lastName'];
+    $title = $_POST['title'];
+    $images = isset($_FILES['img']) ? $_FILES['img']['name'] : '';
+    $gender = $_POST['gender'];
+    $address = $_POST['text'];
     $userEmail = $_SESSION['user'];
-
-    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`title`='$title',`gender`='$gender',`images`='$images',`Address`='$address' where `email`='$userEmail'";
-
-    $run = $con->query($update);
+    
+    // echo "$images";
+   
+    if (isset($_FILES['img']['name'])) {
+        // echo "$images";
+        
+        $pic = $_FILES['img']['tmp_name'];
+        
+        if (file_exists('images/profile_pictures/')) {
+            // echo "hey"; 
+            move_uploaded_file($pic, 'images/profile_pictures/' . $images);
+        }
+        else{
+            mkdir('images/profile_pictures/');
+            move_uploaded_file($pic, 'images/profile_pictures/' . $images);
+        }
+    }
+    $update = "UPDATE `user` SET 
+    `firstname`='$firstname',
+    `lastname`='$lastname',
+    `title`='$title',
+    `images`='$images',
+    `gender`='$gender',
+    `Address`='$address' 
+    WHERE `email`='$userEmail'";
+    
+    $con->query($update);
 }
-
 ?>

@@ -217,12 +217,12 @@ if (isset($_POST['signup_btn'])) {
 
         $mail->AddAddress($to, "Louis Vitton(A Premimum Item Selling Brand)");
         if (!$mail->Send()) {
-            setcookie('error', 'Failed to send the registration link', time() + 5);
+            setcookie('error', 'Failed to send the registration link', time() + 5,"/");
         } else {
             setcookie('success', 'Registration Successfull. Account verification link has been sent to your email. Verify your email to login.', time() + 5);
         }
     } else {
-        setcookie('error', 'Registration Failed', time() + 5);
+        setcookie('error', 'Registration Failed', time() + 5,"/");
     }
 ?>
     <script>

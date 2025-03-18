@@ -14,7 +14,7 @@ $row = mysqli_fetch_assoc($result); ?>
 <script src="additional-methods.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 
-<div class="col-11">
+<div class="col-11 g-0">
     <div class="container my-4">
         <div class="row">
             <div class="col-xxl-9" style="margin: auto;">
@@ -85,7 +85,7 @@ $row = mysqli_fetch_assoc($result); ?>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="editProfileForm">
+                            <form id="editProfileForm" enctype="multipart/form-data" action="profile.php" method="POST">
                                 <div class="mb-3">
                                     <label for="editFullName" class="form-label">First Name</label>
                                     <input type="text" class="form-control" id="editFlName" name="editFlName" data-validation="required alpha">
@@ -97,11 +97,11 @@ $row = mysqli_fetch_assoc($result); ?>
                                     <span class="text-danger" id="editFullNameError"></span>
                                 </div>
 
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label for="editPhone" class="form-label">Phone No</label>
                                     <input type="text" class="form-control" id="editPhone" name="editPhone" data-validation="required phone" pattern="^[6-9]\d{9}$">
                                     <span class="text-danger" id="editPhoneError"></span>
-                                </div>
+                                </div> -->
                                 <div class="mb-3">
                                     <label for="editGender" class="form-label">Gender</label>
                                     <select class="form-select" id="editGender" name="editGender" data-validation="required">
@@ -139,19 +139,37 @@ $row = mysqli_fetch_assoc($result); ?>
 </html>
 <?php
 
-if (isset($_GET['save'])) {
-    $firstname = $_GET['editFlName'];
-    $lastname = $_GET['editlName'];
-    $gender = $_GET['editGender'];
-    $number = $_GET['editPhone'];
-    $image = $_GET['img'];
-    $address = $_GET['editAddress'];
+if (isset($_POST['save'])) {
+    $firstname = $_POST['editFlName'];
+    $lastname = $_POST['editlName'];
+    $gender = $_POST['editGender'];
+    // $number = $_GET['editPhone'];
+    $images = isset($_FILES['img']) ? $_FILES['img']['name'] : '';
+    $address = $_POST['editAddress'];
     $adminEmail = $_SESSION['admin'];
 
+    if (isset($_FILES['img']['name'])) {
+        // echo "$images";
 
-    $update = "update `user` set `firstname`='$firstname',`lastname`='$lastname',`gender`='$gender',`mobilenumber`='$number',`Address`='$address',`images`='$image' where email='$adminEmail'";
+        $pic = $_FILES['img']['tmp_name'];
+
+        if (file_exists("../images/profile_pictures/")) {
+          
+            move_uploaded_file($pic, "../images/profile_pictures/" . $images);
+        } else {
+            mkdir("../images/profile_pictures/");
+            move_uploaded_file($pic, "../images/profile_pictures/" . $images);
+        }
+    }
+    $update = "UPDATE `user` SET 
+    `firstname`='$firstname',
+    `lastname`='$lastname',
+    `images`='$images',
+    `gender`='$gender',
+    `Address`='$address' 
+    WHERE `email`='$adminEmail'";
+
+
     $run = $con->query($update);
-   
-    
 }
 ?>

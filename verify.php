@@ -13,15 +13,15 @@ if (isset($_GET['email']) && isset($_GET['token'])){
         if ($r['status'] == 'inactive') {
             $update = "UPDATE user SET status = 'Active' WHERE email = '$email'";
             if ($con->query($update)) {
-                setcookie('success', 'Account Verification Successful', time() + 5);
+                setcookie('success', 'Account Verification Successful', time() + 5,"/");
             } else {
-                setcookie('error', 'Error in verifying email', time() + 5);
+                setcookie('error', 'Error in verifying email', time() + 5,"/");
             }
         } else {
-            setcookie('success', 'Email already verified', time() + 5);
+            setcookie('success', 'Email already verified', time() + 5,"/");
         }
     } else {
-        setcookie('error', 'Email not registered', time() + 5);
+        setcookie('error', 'Email not registered', time() + 5,"/");
     }
 }
 ?>

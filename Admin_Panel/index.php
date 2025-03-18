@@ -53,7 +53,7 @@ $email = $_SESSION['admin'];
 </head>
 
 <body>
-    <div class="row">
+    <div class="row g-0">
         <div class="col-1">
 
             <aside id="sidebar" style="height:100vh; position: fixed;">
