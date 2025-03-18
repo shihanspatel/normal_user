@@ -71,6 +71,7 @@ $row = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <h5 class="card-title text-primary mb-3">Others</h5>
+                        
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-bold">Password</label>
                             <div class="col-sm-8">
