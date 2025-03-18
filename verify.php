@@ -11,7 +11,7 @@ if (isset($_GET['email']) && isset($_GET['token'])){
 
     if ($count->num_rows == 1) {
         if ($r['status'] == 'inactive') {
-            $update = "UPDATE user SET status = 'Active' WHERE email = '$email'";
+            $update = "UPDATE user SET status = 'active' WHERE email = '$email'";
             if ($con->query($update)) {
                 setcookie('success', 'Account Verification Successful', time() + 5,"/");
             } else {
