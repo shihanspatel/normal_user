@@ -7,9 +7,12 @@ $q = "select * from user where email='$email'";
 $result = $con->query($q);
 $row = mysqli_fetch_assoc($result);
 ?>
-
+<script src="validation.js"></script>
 <script src="jquery-3.7.1.min.js"></script>
+<script src="jquery.validate.min.js"></script>
+<script src="additional-methods.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
+
 
 <div class="col-11 g-0">
     <div class="container my-4">
@@ -36,7 +39,7 @@ $row = mysqli_fetch_assoc($result);
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-bold">First Name</label>
                             <div class="col-sm-8">
-                                <p class="form-control-plaintext" id="editFlName"><?php echo $row['firstname'] ?></p>
+                                <p class="form-control-plaintext" id="editFlName" ><?php echo $row['firstname'] ?></p>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -95,28 +98,33 @@ $row = mysqli_fetch_assoc($result);
                             <form id="editProfileForm" enctype="multipart/form-data" action="profile.php" method="POST">
                                 <div class="mb-3">
                                     <label for="editFlName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="editFlName" name="editFlName">
+                                    <input type="text" class="form-control" id="editFlName" name="editFlName" data-validation="required alpha min max" data-min="3" data-max="25">
+									<span class="text-danger error" id="editFlNameError"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="editlName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="editlName" name="editlName">
+                                    <input type="text" class="form-control" id="editlName" name="editlName" data-validation="required alpha min max" data-min="3" data-max="25">
+									<span class="text-danger error" id="editlNameError"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="editGender" class="form-label">Gender</label>
-                                    <select class="form-select" id="editGender" name="editGender">
+                                    <select class="form-select" id="editGender" name="editGender" data-validation="required">
                                         <option value="">Select Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>
-                                    </select>
+                                    </select>			
+									<span class="text-danger error" id="editGenderError"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="editAddress" class="form-label">Address</label>
-                                    <textarea class="form-control" id="editAddress" name="editAddress" rows="3"></textarea>
+                                    <textarea class="form-control" id="editAddress" name="editAddress" rows="3" data-validation="required min" data-min="10" ></textarea>
+									<span class="text-danger error" id="editAddressError"></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="img" class="form-label">Select Your Image</label>
-                                    <input type="file" class="form-control" id="img" name="img">
+                                    <input type="file" class="form-control" id="img" name="img" data-validation="required file">
+									<span class="text-danger error" id="imgError"></span>
                                 </div>
                                 <button type="submit" class="btn btn-outline-primary" id="save" name="save">Save Changes</button>
                             </form>
@@ -137,15 +145,15 @@ $row = mysqli_fetch_assoc($result);
                             <form id="changePasswordForm" action="profile.php" method="POST">
                                 <div class="mb-3">
                                     <label for="currentPassword" class="form-label">Current Password</label>
-                                    <input type="password" class="form-control" id="currentPassword" name="currentPassword">
+                                    <input type="password" class="form-control" id="currentPassword" name="currentPassword" data-validation="required">
                                 </div>
                                 <div class="mb-3">
                                     <label for="newPassword" class="form-label">New Password</label>
-                                    <input type="password" class="form-control" id="newPassword" name="newPassword">
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword" data-validation="required">
                                 </div>
                                 <div class="mb-3">
                                     <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" data-validation="required"> 
                                 </div>
                                 <button type="submit" class="btn btn-outline-primary" id="savePassword" name="savePassword">Save Password</button>
                             </form>
@@ -180,13 +188,13 @@ if (isset($_POST['save'])) {
         }
     }
 
-    $update = "UPDATE `user` SET 
-    `firstname`='$firstname',
-    `lastname`='$lastname',
-    `images`='$images',
-    `gender`='$gender',
-    `Address`='$address' 
-    WHERE `email`='$adminEmail'";
+    $update = "UPDATE user SET 
+    firstname='$firstname',
+    lastname='$lastname',
+    images='$images',
+    gender='$gender',
+    Address='$address' 
+    WHERE email='$adminEmail'";
     
     $run = $con->query($update);
 }
@@ -203,7 +211,7 @@ if (isset($_POST['savePassword'])) {
 
     if ($currentPassword === $userData['password']) {
         if ($newPassword === $confirmPassword) {
-            $updatePassword = "UPDATE `user` SET `password`='$newPassword' WHERE `email`='$adminEmail'";
+            $updatePassword = "UPDATE user SET password='$newPassword' WHERE email='$adminEmail'";
             $run = $con->query($updatePassword);
             if ($run) {
                 session_destroy();
