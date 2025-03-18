@@ -13,7 +13,12 @@ if (isset($_POST['save'])) {
     if ($current_password == $row['password']) {
         $update = "UPDATE user SET password='$new_password' WHERE email='$userEmail'";
         if ($con->query($update)) {
-            //put distory
+            session_destroy();
+            ?>
+            <script>
+                window.location.href="login.php";
+            </script>
+            <?php
             setcookie('success', 'Password updated successfully', time() + 5,"/");
         } else {
             setcookie('error', 'Error in updating password', time() + 5,"/");
