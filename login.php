@@ -1,4 +1,4 @@
-  <!-- Bootstrap CSS -->
+
   <style>
 
   </style>
@@ -58,39 +58,39 @@
         $con = mysqli_connect("localhost", "root", "", "noraml_user");
 
         if (isset($_GET['sign_in-btn'])) {
-    $email = $_GET['email'];
-    $pwd = $_GET['password'];
+            $email = $_GET['email'];
+            $pwd = $_GET['password'];
 
-    $q = "SELECT * FROM user WHERE email='$email' AND password='$pwd'";
-    $result = $con->query($q);
+            $q = "SELECT * FROM user WHERE email='$email' AND password='$pwd'";
+            $result = $con->query($q);
 
-    if ($result->num_rows == 1) {
-        $row = mysqli_fetch_assoc($result);
-        if ($row['status'] == 'active') {
-            if ($row['role'] == "admin") {
-                $_SESSION['admin'] = $email;
-                setcookie("success", "Loggined to Admin Panel", time() + 5, "/");
-                echo "<script>window.location.href = 'Admin_Panel/Dashboard.php';</script>";
-                exit();
+            if ($result->num_rows == 1) {
+                $row = mysqli_fetch_assoc($result);
+                if ($row['status'] == 'active') {
+                    if ($row['role'] == "admin") {
+                        $_SESSION['admin'] = $email;
+                        setcookie("success", "Loggined to Admin Panel", time() + 15, "/");
+                        echo "<script>window.location.href = 'Admin_Panel/Dashboard.php';</script>";
+                        // exit();
+                    } else {
+                        $_SESSION['user'] = $email;
+                        setcookie("success", "Loggined ", time() + 15, "/");
+                        echo "<script>window.location.href = 'after-login-index.php';</script>";
+                        // exit();
+                    }
+                } else {
+                    setcookie("error", "Email is not verified", time() + 15, "/");
+                    echo "<script>window.location.href = 'login.php';</script>";
+                    // exit();
+                }
             } else {
-                $_SESSION['user'] = $email;
-            setcookie("error", "Email is not verified", time() + 5, "/");
-                echo "<script>window.location.href = 'after-login-index.php';</script>";
-                exit();
+                setcookie("error", "Invalid username or password", time() + 15, "/");
+                echo "<script>window.location.href = 'login.php';</script>";
+                // exit();
             }
-        } else {
-            setcookie("error", "Email is not verified", time() + 5, "/");
-            echo "<script>window.location.href = 'login.php';</script>";
-            exit();
         }
-    } else {
-        setcookie("error", "Invalid username or password", time() + 5, "/");
-        echo "<script>window.location.href = 'login.php';</script>";
-        exit();
-    }
-}
 
-include 'footer.php';
+        include 'footer.php';
 
 
-?>
+        ?>
