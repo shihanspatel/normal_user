@@ -23,7 +23,6 @@ $email = $_SESSION['admin'];
     <script src="jquery-3.7.1.min.js"></script>
     <script src="jquery.validate.min.js"></script>
     <script src="additional-methods.min.js"></script>
-    <script src="js/universal_validation.js"></script>
 
     <style>
         /* webkith */

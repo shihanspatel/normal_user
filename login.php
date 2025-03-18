@@ -6,9 +6,9 @@
 
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-  <script src="js/universal_validation.js"></script>
+<script src="js/universal_validation.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
   <body>
 
@@ -27,12 +27,12 @@
                   <div class="mb-3">
                       <label for="email" class="form-label">Email*</label>
 
-                      <input type="email" id="email" name="email" class="form-control" required data-validation="required email" data-min="2" data-max="30">
+                      <input type="email" id="email" name="email" class="form-control" data-validation="required email">
                       <div class="error" id="passwordError"></div>
                   </div>
                   <div class="mb-3">
                       <label for="password" class="form-label">Password*</label>
-                      <input type="password" id="password" name="password" class="form-control" required>
+                      <input type="password" id="password" name="password" class="form-control" data-validation="required">
                   </div>
 
                   <a href="forget passsword.php" class="forget_text">Forgot your password?</a>
