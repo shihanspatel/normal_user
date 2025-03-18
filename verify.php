@@ -18,7 +18,7 @@ if (isset($_GET['email']) && isset($_GET['token'])){
                 setcookie('error', 'Error in verifying email', time() + 5,"/");
             }
         } else {
-            setcookie('success', 'Email already verified', time() + 5,"/");
+            setcookie('error', 'Email already verified', time() + 5,"/");
         }
     } else {
         setcookie('error', 'Email not registered', time() + 5,"/");

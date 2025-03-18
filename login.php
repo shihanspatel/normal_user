@@ -69,12 +69,12 @@
                 if ($row['status'] == 'active') {
                     if ($row['role'] == "admin") {
                         $_SESSION['admin'] = $email;
-                        setcookie("success", "Loggined to Admin Panel", time() + 15, "/");
+                        setcookie("success", "Login Successfully to Admin Panel", time() + 15, "/");
                         echo "<script>window.location.href = 'Admin_Panel/Dashboard.php';</script>";
                         // exit();
                     } else {
                         $_SESSION['user'] = $email;
-                        setcookie("success", "Loggined ", time() + 15, "/");
+                        setcookie("success", "Login Successfully To LV❤️ ", time() + 15, "/");
                         echo "<script>window.location.href = 'after-login-index.php';</script>";
                         // exit();
                     }
