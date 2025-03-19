@@ -1,12 +1,12 @@
 
-  <style>
-
-  </style>
   </head>
 
+<script src="validation.js"></script>
+<script src="jquery-3.7.1.min.js"></script>
+<script src="jquery.validate.min.js"></script>
+<script src="additional-methods.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="js/universal_validation.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
@@ -15,6 +15,7 @@
 
       <?php
         include_once("before-loginheader.php");
+        include_once("duplicate-email.php");
 
         ?>
       <div class="containerr d-flex flex-wrap justify-content-between">
@@ -69,22 +70,22 @@
                 if ($row['status'] == 'active') {
                     if ($row['role'] == "admin") {
                         $_SESSION['admin'] = $email;
-                        setcookie("success", "Login Successfully to Admin Panel", time() + 15, "/");
+                        setcookie("success", "Login Successfully to Admin Panel", time() + 5, "/");
                         echo "<script>window.location.href = 'Admin_Panel/Dashboard.php';</script>";
                         // exit();
                     } else {
                         $_SESSION['user'] = $email;
-                        setcookie("success", "Login Successfully To LV❤️ ", time() + 15, "/");
+                        setcookie("success", "Login Successfully To LV❤️ ", time() + 5, "/");
                         echo "<script>window.location.href = 'after-login-index.php';</script>";
                         // exit();
                     }
                 } else {
-                    setcookie("error", "Email is not verified", time() + 15, "/");
+                    setcookie("error", "Email is not verified", time() + 5, "/");
                     echo "<script>window.location.href = 'login.php';</script>";
                     // exit();
                 }
             } else {
-                setcookie("error", "Invalid username or password", time() + 15, "/");
+                setcookie("error", "Invalid username or password", time() + 5, "/");
                 echo "<script>window.location.href = 'login.php';</script>";
                 // exit();
             }

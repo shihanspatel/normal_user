@@ -1,5 +1,6 @@
 <?php
 include_once("before-loginheader.php");
+include("duplicate-email.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -167,6 +168,7 @@ if (isset($_POST['signup_btn'])) {
 
     $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`,`gender`,`email`, `address`,`mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
      VALUES ('$title','$firstname','$lastname','$gender','$email','$address','$mobile','$password','$hash_pass','$profile_picture','user','inactive','$token')";
+
 
     if (mysqli_query($con, $insert)) {
 
