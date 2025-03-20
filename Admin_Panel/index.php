@@ -119,7 +119,6 @@ $email = $_SESSION['admin'];
                 </ul>
                 <div class="sidebar-footer">
                     <a href="../login.php" class="sidebar-link">
-                      <?php  setcookie('success','logout successfull',time()+5,"/");?>
                         <i class="lni lni-exit"></i>
                         <span>Logout</span>
                     </a>
