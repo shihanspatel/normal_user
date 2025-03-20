@@ -22,7 +22,7 @@ require('PHPMailer\Exception.php');;
         $('#email').on('blur', function() {
             var email = $(this).val();
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: 'check_duplicate_Email.php',
                 data: {
                     email: email
