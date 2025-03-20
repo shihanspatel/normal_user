@@ -52,7 +52,7 @@ $row = mysqli_fetch_assoc($result);
 </div>
 
 <div class="text-center mt-4">
-    <button type="button" class="btn btn-outline-danger" style="border-radius:50px"><a href="login.php" style="text-decoration: none; color:black;">Logout</a></button>
+    <button type="button" class="btn btn-outline-danger" style="border-radius:50px"><a href="login.php" style="text-decoration: none; color:black;">    <?php  setcookie('success','logout successfull',time()+5,"/");?>Logout</a></button>
 </div>
 <br>
 <?php include_once("footer.php"); ?>

@@ -1,6 +1,5 @@
 <?php
 include_once("before-loginheader.php");
-include("duplicate-email.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -111,7 +110,7 @@ require('PHPMailer\Exception.php');;
         <div class="mb-3 position-relative">
             <label for="confirm_password" class="form-label">Confirm Password*</label>
             <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-sm"
-                data-validation="required confirmPassword" data-password-id="password" required>
+                data-validation="required confirmPassword" data-password-id="password " required>
             <span id="confirm_passwordError" class="text-danger"></span>
         </div>
         
@@ -164,6 +163,7 @@ if (isset($_POST['signup_btn'])) {
     $profile_picture_tmp_name = $_FILES['profile_picture']['tmp_name'];
     $token = time();
     $address = $_POST['address'];
+include("duplicate-email.php");
 
 
     $insert = "INSERT INTO `user`( `title`,`firstname`, `lastname`,`gender`,`email`, `address`,`mobilenumber`, `password`, `c_password`, `images`, `role`, `status`,`token`)
@@ -171,7 +171,6 @@ if (isset($_POST['signup_btn'])) {
 
 
     if (mysqli_query($con, $insert)) {
-
 
         if (!file_exists('images/profile_pictures')) {
             mkdir('images/profile_pictures');
