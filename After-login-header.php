@@ -3,7 +3,7 @@ session_start();
 ob_start();
 // Database connection and query for user data
 $con = mysqli_connect("localhost", "root", "", "noraml_user");
-$email = $_SESSION['user'];
+  $email = $_SESSION['user'];
 $q = "SELECT * FROM user WHERE email='$email'";
 $result = $con->query($q);
 $row = mysqli_fetch_assoc($result);
